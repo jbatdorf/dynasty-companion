@@ -1,41 +1,28 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import "./models/Players";
-import { getAllPlayers } from "./models/Players";
-import { Player } from "./models/Players.types";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import * as ReactDOM from "react-dom/client";
+import React from "react";
+import Home from "./routes/Home/Home";
 
 function App() {
-  const [players, setPlayers] = useState<Player[] | null>(null);
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: <Home />,
+            children: [
+                {
+                    path: "/:leagueId",
+                    element: <div>your league!</div>,
+                },
+            ],
+        },
+    ]);
 
-  return (
-    <>
-      <h1>Enter your league ID</h1>
-      <div className="card">
-        <label id="league-id">
-          <input id="league-id"></input>
-        </label>
-        <button
-          onClick={() => {
-            /* go to league page */
-          }}
-        >
-          GO
-        </button>
-        {players?.map((player) => {
-          return (
-            <li key={player.id}>
-              {player.name} - {player.position} - {player.team}
-            </li>
-          );
-        })}
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+    ReactDOM.createRoot(document.getElementById("root")!).render(
+        <React.StrictMode>
+            <RouterProvider router={router} />
+        </React.StrictMode>,
+    );
 }
 
 export default App;

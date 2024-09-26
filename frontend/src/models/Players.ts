@@ -5,5 +5,5 @@ import { Player } from "./Players.types";
 const BASE_URL = "http://localhost:3000";
 
 export const getAllPlayers = async (): Promise<Player[]> => {
-  return (await axios.get(`${BASE_URL}/players`)).data;
+    return (await axios.get(`${BASE_URL}/players`)).data;
 };
